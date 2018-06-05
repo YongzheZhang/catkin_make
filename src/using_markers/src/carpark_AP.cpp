@@ -25,7 +25,7 @@ ros::Subscriber goalReach_sub,costmap_sub;
 //    int occupied_min_value_=100;
 
 struct car_park{
-    int test;
+    int test2;
     int number;                          // carpark lot numbers
     double width;                        // width of carpark lot
     double depth;                        // height of carpark lot
