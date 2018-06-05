@@ -1,0 +1,8 @@
+prefix=/home/zhe/catkin_ws/devel
+
+Name: sbpl
+Description: Description of sbpl
+Version: 0.0.0
+Cflags: -I/home/zhe/catkin_ws/src/sbpl/include
+Libs: -L/home/zhe/catkin_ws/devel/lib -lsbpl
+Requires: 

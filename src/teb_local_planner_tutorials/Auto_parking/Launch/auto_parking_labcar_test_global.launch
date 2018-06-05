@@ -1,0 +1,173 @@
+<!-- 
+  Simulate a carlike robot with the teb_local_planner in stage:
+  - stage
+  - map_server
+  - move_base
+  - static map
+  - static tf transform
+  - rviz view
+ -->
+<launch>
+     
+
+<!--
+     <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    </node>
+-->
+
+         <!-- parking_lot -->
+     <node pkg="using_markers" type="carpark_AP" name="" args="$(find using_markers)/src/carpark_AP_pp" output="screen">
+
+
+      <param name="vp_number" value="3.0" />
+      <param name="vp_width" value="2.1" />
+      <param name="vp_depth" value="3.26" />
+      <param name="offset_x" value="1.05" />      <!--vp_width/2-->
+      <param name="offset_y" value="2.343" />     <!--vp_.depth+car_length)/2-0.49 -->    
+      <param name="vp_line_width" value="0.1" />   
+      <param name="vp_origin_x" value="-10.0" />
+      <param name="vp_origin_y" value="6.3" />
+      <param name="vp_yaw" value=" 3.1415926" />           <!-- between 0 and 1PI  3.1415926-->  
+         
+      <param name="pp_number" value="3.0" />
+      <param name=" pp_width" value="3.4" />
+      <param name=" pp_depth" value="2.0" />
+      <param name="pffset_x" value="0.75" />         <!--pp_.width-car_length)/2+0.49-0.2 -->    
+      <param name="pffset_y" value="0.95" />         <!--carpark_vertical.depth/2 -->  
+      <param name="pp_line_width" value="0.1" />
+      <param name="pp_origin_x" value="-11.0" />
+      <param name="pp_origin_y" value="6.5" />
+      <param name="pp_yaw" value="3.14159" />
+
+
+      <param name="p_number" value="4.0" />
+      <param name="p_width" value="2.1" />
+      <param name="p_depth" value="3.26" />
+      <param name="ffset_x" value="1.05" />      <!--vp_width/2-->
+      <param name="ffset_y" value="0.49" />     <!--vp_.depth+car_length)/2-0.49 -->    
+      <param name="p_line_width" value="0.1" />   
+      <param name="p_origin_x" value="-14.84" />
+      <param name="p_origin_y" value="16.6" />
+      <param name="p_yaw" value="0.785" />           <!-- between 0 and 1PI-->  
+
+
+      <param name="radius" value="2.6" />
+      <param name="angle_max" value="6.3" />
+      <param name="angle_d" value="0.2" />
+      <param name="distance_between_two_centers" value="1.0" />
+      <param name="Cicle_numbers" value="2.0" />       
+      </node>
+
+
+
+
+              <!-- Decoration-->
+        <node pkg="using_markers" type="Decoration_AP" name="" args="$(find using_markers)/src/Decoration_AP" output="screen">
+
+        <param name="origin_x" value="-16.0"/>
+        <param name="origin_y" value="-3.5"/>
+        <param name="distance_between_each_lines"  value="1.0"/>
+        <param name="Length_each_lines" value="2.0"/>
+        <param name="Street_width" value="2.5"/>
+        <param name="Numbers" value="26"/>   
+
+
+        <param name="s_origin_x" value="-16.0"/>
+        <param name="s_origin_y" value="4.5"/>
+        <param name="s_distance_between_each_lines"  value="1.0"/>
+        <param name="s_Length_each_lines" value="2.0"/>
+        <param name="s_Street_width" value="2.5"/>
+        <param name="s_Numbers" value="26"/>   
+
+
+
+
+
+        <param name="tree_1_height" value="3.0"/>
+        <param name="tree_1_radius" value="0.8"/>
+        <param name="tree_1_position_x"  value="-12"/>
+        <param name="tree_1_position_y" value="0.50"/>
+        <param name="tree_2_position_x" value="-0.83"/>
+        <param name="tree_2_position_y" value="0.5"/>   
+        <param name="tree_3_position_x"  value="10.13"/>
+        <param name="tree_3_position_y" value="0.5"/>
+        <param name="tree_4_position_x" value="20.7"/>
+        <param name="tree_4_position_y" value="0.5"/>   
+
+      </node>
+
+
+ 
+        <!--  ************** Global Parameters ***************  -->
+        <param name="/use_sim_time" value="true"/>
+
+       <!-- function like amcl which publish something-->
+
+        <node pkg="tf" type="static_transform_publisher" name="map_odom_tf" args="0 0 0 0 0 0 /map /odom 100"/> 
+
+        
+
+
+        <!--  ************** Stage Simulator ***************  -->
+	<node pkg="stage_ros" type="stageros" name="stageros" args="$(find teb_local_planner_tutorials)/Auto_parking/Stage/blank.world">
+		<remap from="base_scan" to="scan"/>
+  	</node>
+
+        <!--  ****** Maps *****  -->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(find teb_local_planner_tutorials)/Auto_parking/Map/blank_0.1.yaml" output="screen">
+		<param name="frame_id" value="/map"/>
+	</node>
+
+
+        <!--  ************** Navigation ***************  -->
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+  	  	<rosparam file="$(find teb_local_planner_tutorials)/Auto_parking/Move_base_labcar/costmap_common_params.yaml" command="load" ns="global_costmap" />
+  	 	<rosparam file="$(find teb_local_planner_tutorials)/Auto_parking/Move_base_labcar/costmap_common_params.yaml" command="load" ns="local_costmap" />
+  		<rosparam file="$(find teb_local_planner_tutorials)/Auto_parking/Move_base_labcar/local_costmap_params.yaml" command="load" />
+  		<rosparam file="$(find teb_local_planner_tutorials)/Auto_parking/Move_base_labcar/global_costmap_params.yaml" command="load" />
+  		
+  		
+
+
+      
+          <!-- LOAD COSTMAP_CONVERTER PARAMETERS HERE -->
+               <rosparam file="$(find teb_local_planner_tutorials)/Auto_parking/Move_base_labcar/costmap_converter_params.yaml" command="load" />
+ 
+                           <!--Path_planners-->        
+		<param name="base_global_planner" value="RAstar_planner/RAstarPlannerROS"/>
+
+              <!-- <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+		<param name="planner_frequency" value="0.1" />
+		<param name="planner_patience" value="5.0" />
+-->
+
+            <param name="base_local_planner" value="pose_follower/PoseFollower" />
+	<rosparam file="$(find teb_local_planner_tutorials)/Auto_parking/Move_base_labcar/posefollower_params.yaml" command="load" />
+
+
+<!-- .......................................................................................
+		<param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+		<param name="controller_frequency" value="15.0" />
+		<param name="controller_patience" value="15.0" />
+                <param name="clearing_rotation_allowed" value="false" /> 
+                <rosparam file="$(find teb_local_planner_tutorials)/Auto_parking/Move_base_labcar/teb_local_planner_params.yaml" command="load" />
+-->
+
+
+
+	</node>
+
+	  <!--  **************** Visualisation **************** -->
+	 <node name="rviz" pkg="rviz" type="rviz" args="-d $(find teb_local_planner_tutorials)/Auto_parking/rviz/rviz_navigation_labcar_test.rviz"/>
+
+
+<!--	<node pkg="amcl" type="amcl" name="amcl" output="screen">
+		<rosparam file="$(find teb_local_planner_tutorials)/cfg/amcl_params_test.yaml" command="load" />
+
+	        <param name="initial_pose_x"            value="0"/>
+		<param name="initial_pose_y"            value="0"/>
+		<param name="initial_pose_a"            value="0"/>
+	</node> -->
+
+
+</launch>

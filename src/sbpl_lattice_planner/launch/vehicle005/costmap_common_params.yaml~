@@ -1,0 +1,29 @@
+#START VOXEL STUFF
+map_type: voxel
+origin_z: 0.0
+z_resolution: 0.2
+z_voxels: 10
+unknown_threshold: 9
+mark_threshold: 0
+#END VOXEL STUFF
+transform_tolerance: 2.3
+obstacle_range: 15.0
+max_obstacle_height: 2.0
+raytrace_range: 15.0
+
+#footprint: [[-1.25, -0.6], [1.25, -0.6], [1.25, 0.6], [-1.25, 0.6]]
+footprint: [[-2.1, 0.6], [-2.1, -0.6], [0.60, -0.60], [0.60, 0.6]] 
+
+#footprint: [[-2.5, -0.20], [-2.5, 0.20], [0.0, 0.20], [0.0, -0.2]] 
+
+robot_radius: 1.5        #default 0.46
+footprint_padding: 0.01  #default 0.01
+inflation_radius: 1.5    #default 0.55
+cost_scaling_factor: 1.0  #default 10.0
+lethal_cost_threshold: 100
+observation_sources: base_scan
+base_scan: {sensor_frame: base_laser_link, data_type: LaserScan, topic: /base_scan, marking: true, clearing: true, expected_update_rate: 10.0, observation_persistence: 0.0, min_obstacle_height: -0.10, max_obstacle_height: 2.0}
+
+#observation_sources: hokuyo_scan
+#hokuyo_scan: {data_type: LaserScan, expected_update_rate: 0.4,
+#  observation_persistence: 0.0, marking: true, clearing: true, max_obstacle_height: 0.4, min_obstacle_height: 0.08}

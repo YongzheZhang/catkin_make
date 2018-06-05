@@ -1,0 +1,104 @@
+include "Car/lab_car.inc"
+# Car Robot
+
+# Car robot end
+
+
+
+
+define floorplan model
+(
+  # sombre, sensible, artistic
+  color "gray30"
+
+  # most maps will need a bounding box
+  boundary 1
+
+  gui_nose 0
+  gui_grid 0
+  gui_outline 0
+  gripper_return 0
+  fiducial_return 0
+  laser_return 1
+)
+
+resolution 0.02
+interval_sim 100  # simulation timestep in milliseconds
+
+window
+(
+  size [ 1920 1056 ]
+  center [ -8.019 -4.357 ]
+  rotate [ 0.000 0.000 ]
+  scale 19.118
+)
+
+floorplan
+(
+  name "carpark"
+  bitmap "../Map/blank_0.1.jpg"
+  size [ 50.000 20.000 2.000 ]
+  pose [ 0.000 0.000 0.000 0.000 ]
+)
+
+# throw in a robot
+carlike_robot
+(
+  pose [ -0.000 -0.000 0.000 0.000 ]
+  name "robot"
+)
+
+define block model
+(
+ size [2.406 1.400 2.000]
+  gui_nose 0
+)
+
+
+define obstacle model
+(
+ size [1.000 1.000 1.500]
+  gui_nose 1
+)
+
+define obstacle_2 model
+(
+ size [0.500 0.500 1.700]
+  gui_nose 2
+)
+
+
+define obstacle_3 model
+(
+ size [0.200 0.200 1.500]
+  gui_nose 3
+)
+
+
+
+block( pose [ 10.046  -7.648 0.000 -90.000 ] color "blue")
+block( pose [ 5.966 -7.608 0.000 -90.000 ] color "blue")
+
+block( pose [ -5.336 -7.464 0.000 0.000] color "blue")
+block( pose [ -12.892 -7.409 0.000 0.000 ] color "blue")
+
+block( pose [ -20.843 4.182 0.000 -45.000 ] color "blue")
+block( pose [ -18.076 7.078 0.000 -45.000 ] color "blue")
+
+
+
+
+
+block( pose [ 33.880 2.393 0.000 -90.000 ] color "black")
+block( pose [ -38.713 -6.773 0.000 -90.000 ] color "black")
+
+obstacle(pose [ -16.375 -14.703 0.000 -90.000 ] color "black")
+obstacle(pose [ 34.365 -4.475 0.000 -90.000 ] color "black")
+
+
+obstacle_2(pose [ -3.842 -14.996 0.000 -90.000 ] color "black")
+obstacle_2(pose [ -38.181 -2.516 0.000 -90.000 ] color "black")
+
+obstacle_3(pose [ -36.650 -6.372 0.000 -90.000 ] color "black")
+obstacle_3(pose [ 3.333 -17.932 0.000 -90.000 ] color "black")
+

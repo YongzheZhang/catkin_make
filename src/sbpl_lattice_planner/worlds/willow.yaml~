@@ -1,0 +1,6 @@
+image: willow.pgm
+resolution: 0.25
+origin: [-279, -228.125, 0]
+occupied_thresh: 0.75
+free_thresh: 0.1
+negate: 0

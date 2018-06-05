@@ -1,0 +1,87 @@
+define robcar position
+(
+#shape of robot
+
+block(
+ points 3
+ point[0] [1 0.5]
+ point[1] [0 1]
+ point[2] [0 0]
+ z [0 1]
+)
+#fit shape to this size in meters 
+size [0.5 0.5 0.5]
+)
+
+
+
+define topurg ranger
+(
+	sensor( 			
+    range [ 0.0  30.0 ]
+    fov 270.25
+   samples 1081
+  )
+
+  # generic model properties
+  color "black"
+  size [ 0.05 0.05 0.1 ]
+)
+
+define erratic position
+(
+  #size [0.415 0.392 0.25]
+  size [2.5 2.5 2.5]
+  origin [-0.05 0 0 0]
+  gui_nose 1
+  drive "diff"
+  topurg(pose [ 0.050 0.000 0 0.000 ])
+)
+
+
+
+define floorplan model
+(
+  # sombre, sensible, artistic
+  color "gray30"
+
+  # most maps will need a bounding box
+  boundary 1
+
+  gui_nose 0
+  gui_grid 0
+
+  gui_outline 0
+  gripper_return 0
+  fiducial_return 0
+  laser_return 1
+)
+
+# set the resolution of the underlying raytrace model in meters
+resolution 0.02
+
+interval_sim 100  # simulation timestep in milliseconds
+
+
+window
+( 
+  size [ 1000 750 ] 
+
+  rotate [ 0.000 -1.560 ]
+  scale 28.806 
+)
+
+# load an environment bitmap
+floorplan
+( 
+  name "willow"
+  bitmap "test.jpg"
+  size [100 75 0.5]
+  pose [ -29.350 27.000 0 90.000 ]
+)
+
+# throw in a robot
+erratic( pose [ -11.277 23.266 0 180.000 ] name "era" color "green")
+robcar( pose [ -15.277 20.266 0 180.000 ] name "era1" color "red")
+
+

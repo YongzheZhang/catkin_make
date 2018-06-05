@@ -1,0 +1,8 @@
+prefix=/home/zhe/catkin_ws/devel
+
+Name: car_gazebo
+Description: Description of car_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/zhe/catkin_ws/devel/lib 
+Requires: 

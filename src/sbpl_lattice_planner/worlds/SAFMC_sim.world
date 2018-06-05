@@ -1,0 +1,105 @@
+################# dynamic obstacles
+define corner1 model
+(
+  size [0.05 0.05 0.1]
+  gui_nose 0
+)
+define corner2 model
+(
+  size [0.05 0.05 0.1]
+  gui_nose 0
+)
+define corner3 model
+(
+  size [0.05 0.05 0.1]
+  gui_nose 0
+)
+define corner4 model
+(
+  size [0.05 0.05 0.1]
+  gui_nose 0
+)
+
+define landing model
+(
+  size [0.15 0.15 0.05]
+  gui_nose 0
+)
+
+################# sensor
+define vi ranger
+(
+  #sensor( range [ 0.0  4.0 ] fov 98 samples 980 )   # vi-sensor depth sensing type
+  sensor( range [ 0.0  10.0 ] fov 220 samples 1001 )  # lidar
+  # generic model properties
+  color "black"
+  size [ 0.133 0.04 0.057 ]
+  #size [ 0.05 0.05 0.1 ]
+  #size [ 0.0 0.0 0.0 ]
+)
+################# quad
+define quad position
+(
+  #size [0.415 0.392 0.25]
+  size [0.4 0.4 0.0]          # 350mm quad, height zero simulation only
+  #size [0.15 0.15 0.15]      # 3D printed small quad
+  origin [0 0 0 0]
+  #origin [-0.05 0 0 0]
+  gui_nose 1
+  drive "omni"
+  #vi(pose [ 0.000 0.000 0.0 0.000 ])
+  vi(pose [ 0.00 0.000 0.0 0.000 ])
+)
+################# map
+define floorplan model
+(
+  # sombre, sensible, artistic
+  color "gray30"
+
+  # most maps will need a bounding box
+  boundary 1
+
+  gui_nose 0
+  gui_grid 0
+
+  gui_outline 0
+  gripper_return 0
+  fiducial_return 0
+  #laser_return 1
+)
+
+# set the resolution of the underlying raytrace model in meters
+resolution 0.02
+
+interval_sim 100  # simulation timestep in milliseconds
+
+
+window
+( 
+  size [ 745.000 448.000 ] 
+
+  #rotate [ 0.000 -1.560 ]
+  rotate [ 0.000 0.0 ]
+  scale 28.806 
+)
+
+# load an environment bitmap
+floorplan
+( 
+  name "SAFMC"
+  bitmap "SAFMC_map.png"
+  #size [3.15 4.6 2.5]
+  #size [54.0 58.7 0.5]
+  size [15.0 15.0 0.5]
+  pose [ 4.5 7.2 0 -0.5 ]
+  #pose [ -29.350 27.000 0 90.000 ]
+)
+
+# throw in a robot
+#quad( pose [ -1.18715 -1.51985 0 0.0 ] name "quad" color "blue")
+#block( pose [ -13.924 25.020 0 180.000 ] color "red")
+quad( pose [ 0.0 0.38 0.0 90.0 ] name "quad" color "blue")
+
+
+
+

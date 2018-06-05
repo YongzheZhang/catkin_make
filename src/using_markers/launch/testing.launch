@@ -1,0 +1,26 @@
+<launch>
+
+  <node pkg="tf" type="static_transform_publisher" name="map2base_link1" args="10 9 0 0 0 0 1  map myframe_v 100" />
+
+
+
+  <node pkg="using_markers" type="parking_lot_labcar" name="baselink1" args="$(find using_markers)/src/parking_lot_labcar" output="screen" />
+
+
+
+<node pkg="tf" type="static_transform_publisher" name="map2base_link2" args="-15 -9 0 0 0 180 1  map myframe_p 100" />
+
+
+<node pkg="using_markers" type="parking_lot_labcar" name="baselink2" args="$(find using_markers)/src/parking_lot_labcar" output="screen" />
+
+
+
+<param name="scale_linear" value="1" type="double"/>
+<param name="scale_angular" value="1" type="double"/>
+
+</launch>
+
+
+
+
+

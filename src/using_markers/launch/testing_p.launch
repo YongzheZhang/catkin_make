@@ -1,0 +1,24 @@
+<launch>
+
+
+
+  <node pkg="using_markers" type="carpark_AP" name="" args="$(find using_markers)/src/carpark_AP" output="screen">
+
+      <param name="p_number" value="3.0" />
+
+      <param name="p_origin_x" value="5.0" />
+      <param name="p_origin_y" value="5.0" />
+      <param name="p_yaw" value="3.1415" />  
+
+
+      <param name="ffset_x" value="1.05" />     
+      <param name="ffset_y" value="2.7" />   
+      <param name="ffset_angle" value="4.7" />   
+
+      <param name="p_width" value="3.0" />
+      <param name="p_depth" value="5.0" />
+
+      
+      </node>
+
+</launch>

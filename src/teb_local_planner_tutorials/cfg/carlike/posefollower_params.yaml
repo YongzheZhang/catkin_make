@@ -1,0 +1,6 @@
+PoseFollower:
+  sim_time: 1.7
+  vx_samples: 10
+  vtheta_samples: 20
+  sim_granularity: 0.05
+  holonomic_robot: false
